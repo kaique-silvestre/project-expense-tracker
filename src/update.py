@@ -1,6 +1,6 @@
 from json_operations import JsonOperations
 import copy
-
+from validations import Validation
 
 class Update:
     @staticmethod
@@ -17,6 +17,7 @@ class Update:
                 if args.category:
                     item['category'] = args.category
                 if args.date:
-                    item['date'] = args.date
+                    date = Validation.correctly_datatype_str(args.date)
+                    item['date'] = date
         JsonOperations.send_json(file_path, new_list)
         

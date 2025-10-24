@@ -1,15 +1,13 @@
 from json_operations import JsonOperations
 from validations import Validation
+from datetime import datetime
 
 class Add:
     @staticmethod
     def add(path_file, database: list, args):
-        Validation.is_positive(args.amount)
-        if args.date:
-            Validation.date_validation(args.date)
-            
+        date_type_str = Validation.correctly_datatype_str(args.date)
 
-        values = {"id": 0, "amount": args.amount, "category": args.category, "date": args.date, "description": args.description}
+        values = {"id": 1, "amount": args.amount, "category": args.category, "date": date_type_str, "description": args.description}
         if len(database) >= 1:
             real_id = database[-1]["id"] + 1
             values["id"] = real_id
