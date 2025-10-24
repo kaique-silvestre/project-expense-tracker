@@ -1,12 +1,12 @@
 import argparse
 import pathlib
 
-from json_operations import JsonOperations
-from validations import Validation
-from add import Add
-from delete import Delete
-from update import Update
-from read import Read
+from src.json_operations import JsonOperations
+from src.validations import Validation
+from src.add import Add
+from src.delete import Delete
+from src.update import Update
+from src.read import Read
 
 JSON_FILE = pathlib.Path(__file__).parent / "spendings.json"
 
@@ -34,7 +34,11 @@ subparser_list = subparser.add_parser("list")
 
 # summary
 subparser_summary = subparser.add_parser("summary")
-subparser_summary.add_argument("-m", "--month", type=int, default=None, help="")
+group_summary = subparser_summary.add_mutually_exclusive_group()
+group_summary.add_argument("-m", "--month", type=int, default=None, help="")
+group_summary.add_argument("-c", "--category", type=str, help="")
+# subparser_summary.add_argument()
+# subparser_summary.add_argument()
 
 # update subparser 
 subparser_update = subparser.add_parser("update")
@@ -66,4 +70,4 @@ elif args.command == "update":
     Update.update(JSON_FILE, database, args)
 elif args.command == "summary":
     Validation.summary_validation(args)
-    Read.summary(JSON_FILE, database, args)
+    Read.summary(database, args)

@@ -15,23 +15,29 @@ class Read:
     
     
     @staticmethod
-    def summary(file_path, database, args):
+    def summary(database, args):
         total_spends = 0
-        if not database:
-            print("# Nenhum gasto registrado ainda.")
-        else:
-            if args.month is not None:
-                for item in database:
+        if args.month is not None:
+            for item in database:
+                if item['date'] is not None:
                     date = datetime.strptime(item['date'], '%d/%m/%Y')
                     if date.month == args.month:
                         total_spends += item['amount']
-                print(f"\n# Total expenses of {args.month} month: ${total_spends}")      
-            else:
-                for item in database:
-                    total_spends += item['amount'] if item['amount'] != None else 0
-                print(f"\n# Total expenses: ${total_spends}\n")
-                    
+                    else:
+                        continue
+        elif args.category is not None:
+            for item in database:
+                if item['category'] == args.category:
+                    total_spends += item['amount']
+        else:
+            for item in database:
+                total_spends += item['amount'] if item['amount'] != None else 0
+        print(f"\n# Total expenses: ${total_spends}\n")
+
+    @staticmethod
+    def teste(args):
+        if args.category is not None and args.month is not None:
+            ...
+        elif args.category is not None:
+            ...
         
-
-                
-

@@ -1,11 +1,13 @@
-from json_operations import JsonOperations
-from validations import Validation
-from datetime import datetime
+from src.json_operations import JsonOperations
+from src.validations import Validation
 
 class Add:
     @staticmethod
     def add(path_file, database: list, args):
-        date_type_str = Validation.correctly_datatype_str(args.date)
+        if args.date:
+            date_type_str = Validation.correctly_datatype_str(args.date)
+        else:
+            date_type_str = None
 
         values = {"id": 1, "amount": args.amount, "category": args.category, "date": date_type_str, "description": args.description}
         if len(database) >= 1:

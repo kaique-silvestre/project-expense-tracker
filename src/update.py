@@ -1,6 +1,6 @@
-from json_operations import JsonOperations
+from src.json_operations import JsonOperations
 import copy
-from validations import Validation
+from src.validations import Validation
 
 class Update:
     @staticmethod

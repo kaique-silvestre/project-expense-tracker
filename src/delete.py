@@ -1,4 +1,5 @@
-from json_operations import JsonOperations
+from src.json_operations import JsonOperations
+
 class Delete:
     @staticmethod
     def delete(path_file, database, args):
