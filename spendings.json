@@ -1,86 +1,44 @@
 [
     {
         "id": 1,
-        "amount": 2000.0,
+        "amount": 1000.0,
         "category": null,
-        "date": null,
-        "description": "descri\u00e7\u00e3o"
+        "date": "27/10/2025",
+        "description": null
     },
     {
         "id": 2,
-        "amount": 2000.0,
+        "amount": 1000.0,
         "category": null,
-        "date": null,
-        "description": "descri\u00e7\u00e3o"
+        "date": "27/10/2025",
+        "description": null
     },
     {
         "id": 3,
-        "amount": 2000.0,
+        "amount": 1000.0,
         "category": null,
-        "date": "22/12/2025",
+        "date": "27/10/2025",
         "description": null
     },
     {
         "id": 4,
         "amount": 1000.0,
-        "category": "teste",
-        "date": null,
+        "category": "Alimentos",
+        "date": "27/10/2025",
         "description": null
     },
     {
         "id": 5,
         "amount": 1000.0,
-        "category": "teste",
-        "date": null,
+        "category": "Alimentos",
+        "date": "27/10/2025",
         "description": null
     },
     {
         "id": 6,
-        "amount": 1000.0,
-        "category": "teste",
-        "date": null,
-        "description": null
-    },
-    {
-        "id": 7,
-        "amount": 1000.0,
-        "category": "teste",
-        "date": null,
-        "description": null
-    },
-    {
-        "id": 8,
-        "amount": 1000.0,
-        "category": "teste",
-        "date": null,
-        "description": null
-    },
-    {
-        "id": 9,
-        "amount": 1000.0,
-        "category": "alimentos",
-        "date": null,
-        "description": null
-    },
-    {
-        "id": 10,
-        "amount": 1000.0,
-        "category": "alimentos",
-        "date": null,
-        "description": null
-    },
-    {
-        "id": 11,
-        "amount": 1000.0,
-        "category": "alimentos",
-        "date": null,
-        "description": null
-    },
-    {
-        "id": 12,
-        "amount": 1000.0,
-        "category": "novo",
-        "date": "01/01/2001",
+        "amount": 500.0,
+        "category": null,
+        "date": "10/05/2025",
         "description": null
     }
 ]

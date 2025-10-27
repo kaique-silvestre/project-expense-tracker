@@ -1,4 +1,5 @@
 from datetime import datetime
+from copy import deepcopy
 
 class Read:
     @staticmethod
@@ -15,29 +16,31 @@ class Read:
     
     
     @staticmethod
-    def summary(database, args):
+    def total_summary(database, args):
         total_spends = 0
-        if args.month is not None:
-            for item in database:
-                if item['date'] is not None:
-                    date = datetime.strptime(item['date'], '%d/%m/%Y')
-                    if date.month == args.month:
-                        total_spends += item['amount']
-                    else:
-                        continue
-        elif args.category is not None:
-            for item in database:
-                if item['category'] == args.category:
-                    total_spends += item['amount']
-        else:
-            for item in database:
-                total_spends += item['amount'] if item['amount'] != None else 0
-        print(f"\n# Total expenses: ${total_spends}\n")
+        for expense in database:
+            if args.category is not None:
+                if expense['category'] == args.category:
+                    total_spends += expense['amount']
+            else: 
+                    total_spends += expense['amount']
+        print(f"Total expenses:{total_spends}")
+
+    def year_summary(database, args):
+        total_sepnds = 0
+        print(type(args.year))
+        for expenses in database:
+            year_datetime_type = datetime.strptime(expenses['date'], "%d/%m/%Y")
+            if year_datetime_type == args.year:
+                print(True)
 
     @staticmethod
-    def teste(args):
-        if args.category is not None and args.month is not None:
-            ...
-        elif args.category is not None:
-            ...
+    def filter(database, args):
+        total_spends = 0
+        new_list = deepcopy(database)
+        for expenses in new_list:
+            if args.category is not None:
+                if expenses.get("category") == args.category:
+                    expenses["Marker"] = True
+        
         

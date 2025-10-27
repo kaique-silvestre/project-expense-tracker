@@ -1,5 +1,6 @@
 from src.json_operations import JsonOperations
 from src.validations import Validation
+from datetime import datetime
 
 class Add:
     @staticmethod
@@ -7,7 +8,7 @@ class Add:
         if args.date:
             date_type_str = Validation.correctly_datatype_str(args.date)
         else:
-            date_type_str = None
+            date_type_str = datetime.strftime(datetime.today(), "%d/%m/%Y")
 
         values = {"id": 1, "amount": args.amount, "category": args.category, "date": date_type_str, "description": args.description}
         if len(database) >= 1:

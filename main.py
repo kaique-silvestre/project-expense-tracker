@@ -34,11 +34,26 @@ subparser_list = subparser.add_parser("list")
 
 # summary
 subparser_summary = subparser.add_parser("summary")
-group_summary = subparser_summary.add_mutually_exclusive_group()
-group_summary.add_argument("-m", "--month", type=int, default=None, help="")
-group_summary.add_argument("-c", "--category", type=str, help="")
-# subparser_summary.add_argument()
-# subparser_summary.add_argument()
+summaries = subparser_summary.add_subparsers(dest="mode")
+
+total_subparser = summaries.add_parser("total")
+total_subparser.add_argument("-c", "--category")
+
+year_subparser = summaries.add_parser("year")
+year_subparser.add_argument("year", type=int)
+year_subparser.add_argument("--month", type=int)
+
+
+
+# Filter teste
+subparser_filter = subparser.add_parser("filter")
+subparser_filter.add_argument("year", type=int)
+subparser_filter.add_argument("--month", type=int)
+subparser_filter.add_argument("--category")
+
+
+
+
 
 # update subparser 
 subparser_update = subparser.add_parser("update")
@@ -69,5 +84,7 @@ elif args.command == "update":
     Validation.update_validation(args)
     Update.update(JSON_FILE, database, args)
 elif args.command == "summary":
-    Validation.summary_validation(args)
-    Read.summary(database, args)
+    if args.mode == "total" or args.mode is None:
+        Read.total_summary(database, args)
+elif args.command == "filter":
+    Read.filter(database, args)
