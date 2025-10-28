@@ -47,7 +47,7 @@ year_subparser.add_argument("--month", type=int)
 
 # Filter teste
 subparser_filter = subparser.add_parser("filter")
-subparser_filter.add_argument("year", type=int)
+subparser_filter.add_argument("--year", type=int)
 subparser_filter.add_argument("--month", type=int)
 subparser_filter.add_argument("--category")
 

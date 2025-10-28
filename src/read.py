@@ -36,11 +36,24 @@ class Read:
 
     @staticmethod
     def filter(database, args):
-        total_spends = 0
-        new_list = deepcopy(database)
-        for expenses in new_list:
+        datas = []
+
+        for expense in database:
+            date = datetime.strptime(expense['date'], '%d/%m/%Y')
+
+
+            if args.year is not None:
+                if args.year != date.year:
+                    continue
+            
+            if args.month is not None:
+                if args.month != date.month:
+                    continue
+            
             if args.category is not None:
-                if expenses.get("category") == args.category:
-                    expenses["Marker"] = True
-        
-        
+                if args.category != expense['category']:
+                    continue
+
+            datas.append(expense)
+
+        Read.list(datas)
