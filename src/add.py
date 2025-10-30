@@ -11,7 +11,7 @@ class Add:
             date_type_str = datetime.strftime(datetime.today(), "%d/%m/%Y")
 
         values = {"id": 1, "amount": args.amount, "category": args.category, "date": date_type_str, "description": args.description}
-        if len(database) >= 1:
+        if len(database) >= 2:
             real_id = database[-1]["id"] + 1
             values["id"] = real_id
         database.append(values)

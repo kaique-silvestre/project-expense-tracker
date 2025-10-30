@@ -1,5 +1,7 @@
 from datetime import datetime
 from copy import deepcopy
+import csv
+import pathlib
 
 class Read:
     @staticmethod
@@ -39,6 +41,7 @@ class Read:
         datas = []
 
         for expense in database:
+            path = pathlib.Path("C:\\Users\\Imuvi\\Documents\\kaique\\scripts\\expense-tracker\\teste.csv")
             date = datetime.strptime(expense['date'], '%d/%m/%Y')
 
 
@@ -53,7 +56,36 @@ class Read:
             if args.category is not None:
                 if args.category != expense['category']:
                     continue
+            
+            if args.less is not None:
+                if args.less <= expense['amount']:
+                    continue
+            
+            if args.greater is not None:
+                if args.greater >= expense['amount']:
+                    continue
+                      
+            if args.amount is not None:
+                if args.amount != expense['amount']:
+                    continue
+
+        if args.export is not None and args.export is True:
+
+            
+
+            with open(path, "a+", encoding='utf8') as file:
+                csv_writer = csv.DictWriter(file, fieldnames=database[0].keys())
+                if not path.exists():
+                    csv_writer.writerow(["id", "valor", "categoria", "data", "descricao"])
+                
+                
+                    csv_writer.writerows(database)
+
+
 
             datas.append(expense)
+        
+
+
 
         Read.list(datas)
