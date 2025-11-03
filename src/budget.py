@@ -7,7 +7,7 @@ class Budget:
         limit = args.value
         month = args.month
         if month in database[0].keys():
-            database[0][str(month)]['Limite'] = limit
+            database[0][str(month)]['limit'] = int(limit)
         JsonOperations.send_json(path_file, database)        
 
     @staticmethod

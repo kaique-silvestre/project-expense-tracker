@@ -4,17 +4,27 @@ from datetime import datetime
 
 class Add:
     @staticmethod
-    def add(path_file, database: list, args):
+    def add(path_file, database: list, args, budget = 0):
+
+        print(args.date)
+
         if args.date:
             date_type_str = Validation.correctly_datatype_str(args.date)
         else:
             date_type_str = datetime.strftime(datetime.today(), "%d/%m/%Y")
 
+
+
+   
+
         values = {"id": 1, "amount": args.amount, "category": args.category, "date": date_type_str, "description": args.description}
-        if len(database) >= 2:
+        if len(database) >= 1:
             real_id = database[-1]["id"] + 1
             values["id"] = real_id
         database.append(values)
         JsonOperations.send_json(path_file, database)
         print(f"\n# Expense added successfully (ID: {values['id']})\n")
+
+    def teste(budget, date):
+        expense_month = datetime.strptime(date.date, "%d/%m/%Y")
             

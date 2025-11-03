@@ -10,7 +10,26 @@ from src.read import Read
 from src.budget import Budget
 
 
-JSON_FILE = pathlib.Path(__file__).parent / "spendings.json"
+STRUCT = {
+    "01" : {"limit": None},
+    "02" :{"limit": None},
+    "03" :{"limit": None},
+    "04" :{"limit": None},
+    "05" :{"limit": None},
+    "06" :{"limit": None},
+    "07" :{"limit": None},
+    "08" :{"limit": None},
+    "09" :{"limit": None},
+    "10" :{"limit": None},
+    "11" :{"limit": None},
+    "12" :{"limit": None},
+}
+
+
+
+JSON_FOLDER = pathlib.Path(__file__).parent / "jsons"
+JSON_BUDGET = JSON_FOLDER / "budget_data.json"
+JSON_DATABASE = JSON_FOLDER / "database.json"
 
 
 parser = argparse.ArgumentParser()
@@ -72,11 +91,6 @@ budget_view.add_argument("month")
 budget_remove = subparser_budget.add_parser("remove")
 budget_remove.add_argument("month")
 
-
-
-
-
-
 # update subparser 
 subparser_update = subparser.add_parser("update")
 subparser_update.add_argument("id", type=int, nargs="+", help="")
@@ -87,25 +101,38 @@ subparser_update.add_argument("-c", "--category", type=str)
 
 args = parser.parse_args()
 
-JsonOperations.create(JSON_FILE)
-database = JsonOperations.return_json(JSON_FILE)
+jsonoperations = JsonOperations()
+pathlib.Path(JSON_FOLDER).mkdir(exist_ok=True)
+pathlib.Path(JSON_DATABASE).touch(exist_ok=True)
+pathlib.Path(JSON_BUDGET).touch(exist_ok=True)
+try: 
+    database = JsonOperations.return_json(JSON_DATABASE)
+except Exception:
+    JsonOperations.send_json(JSON_DATABASE, [])
+try: 
+    database = JsonOperations.return_json(JSON_BUDGET)
+except Exception:
+    JsonOperations.send_json(JSON_BUDGET, [STRUCT])
 
-print(args)
+database = JsonOperations.return_json(JSON_DATABASE)
+budget_database = JsonOperations.return_json(JSON_BUDGET)
+
+
 
 
 if args.command == "add":
     Validation.add_validation(args)
-    Add.add(JSON_FILE, database, args)
+    Add.add(JSON_DATABASE, database, args)
 elif args.command == "delete":
     Validation.delete_validation(args)
-    Delete.delete(JSON_FILE, database, args)
+    Delete.delete(JSON_DATABASE, database, args)
 elif args.command == "list":
     Read.list(database)
 elif args.command == "clear":
-    JsonOperations.send_json(JSON_FILE, [])
+    JsonOperations.send_json(JSON_DATABASE, [])
 elif args.command == "update":
     Validation.update_validation(args)
-    Update.update(JSON_FILE, database, args)
+    Update.update(JSON_DATABASE, database, args)
 elif args.command == "summary":
     if args.mode == "total" or args.mode is None:
         Read.total_summary(database, args)
@@ -114,7 +141,7 @@ elif args.command == "filter":
 elif args.command == "budget":
     if args.command_budget == "set":
         print("set")
-        Budget.budget_set(JSON_FILE, database, args)
+        Budget.budget_set(JSON_BUDGET, budget_database, args)
     elif args.command_budget == "view":
         print("view")
     elif args.command_budget == "remove":

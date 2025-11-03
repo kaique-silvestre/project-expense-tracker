@@ -1,0 +1,40 @@
+[
+    {
+        "1": {
+            "limit": 500
+        },
+        "2": {
+            "limit": 2000
+        },
+        "3": {
+            "limit": null
+        },
+        "4": {
+            "limit": null
+        },
+        "5": {
+            "limit": null
+        },
+        "6": {
+            "limit": null
+        },
+        "7": {
+            "limit": null
+        },
+        "8": {
+            "limit": null
+        },
+        "9": {
+            "limit": null
+        },
+        "10": {
+            "limit": null
+        },
+        "11": {
+            "limit": null
+        },
+        "12": {
+            "limit": null
+        }
+    }
+]
