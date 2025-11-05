@@ -2,7 +2,9 @@ import argparse
 
 from controller.json_operations import JsonOperations
 from controller.add import Add
-
+from controller.delete import Delete
+from controller.update import Update
+from controller.read import Read
 
 parser = argparse.ArgumentParser()
 
@@ -22,9 +24,6 @@ subparser_delete.add_argument("id", type=int, nargs="+", help="")
 # CLEAR SUBPARSER
 subparser_clear = subparser.add_parser("clear", help="")
 
-# LIST SUBPARSER
-subparser_list = subparser.add_parser("list")
-
 # SUMMARY SUBPARSER
 subparser_summary = subparser.add_parser("summary")
 summaries = subparser_summary.add_subparsers(dest="mode")
@@ -36,17 +35,14 @@ year_subparser = summaries.add_parser("year")
 year_subparser.add_argument("year", type=int)
 year_subparser.add_argument("--month", type=int)
 
-
-
-# FILTER SUBPARSER
-subparser_filter = subparser.add_parser("filter")
-subparser_filter.add_argument("-y","--year", type=int)
-subparser_filter.add_argument("-m","--month", type=int)
-subparser_filter.add_argument("-c", "--category")
-subparser_filter.add_argument("-l", "--less", type=int)
-subparser_filter.add_argument("-g", "--greater", type=int)
-subparser_filter.add_argument("-a", "--amount", type=int)
-subparser_filter.add_argument("-e", "--export", action="store_const", const=True )
+# LIST SUBPARSER
+subparser_list = subparser.add_parser("list")
+subparser_list.add_argument("-y","--year", type=int)
+subparser_list.add_argument("-m","--month", type=int)
+subparser_list.add_argument("-c", "--category")
+subparser_list.add_argument("-l", "--less", type=int)
+subparser_list.add_argument("-g", "--greater", type=int)
+subparser_list.add_argument("-a", "--amount", type=int)
 
 # BUDGET SUBPARSER
 budget_parser = subparser.add_parser("budget")
@@ -76,9 +72,21 @@ subparser_update.add_argument("-c", "--category", type=str)
 
 args = parser.parse_args()
 
-json_database = JsonOperations()
+js = JsonOperations()
 
-Add = Add()
+js.creation()
+
+a = Add()
+
+database = JsonOperations.return_json(JsonOperations.DATABASE_FILE)
 
 if args.command == "add":
-    Add.add(json_database.DATABASE_FILE, args)
+    a.add_flow(database, args)
+elif args.command == "delete":
+    Delete.delete(database, args)
+elif args.command == "update":
+    Update.update(database, args)
+elif args.command == "list":
+    Read.filter(database, args)
+elif args.command == "clear":
+    JsonOperations.send_json(JsonOperations.DATABASE_FILE, [])
