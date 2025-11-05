@@ -1,4 +1,6 @@
 from datetime import datetime
+from controller.json_operations import JsonOperations
+import csv
 
 class Read:
     
@@ -15,9 +17,11 @@ class Read:
             print("-" * 80)
 
 
-    @staticmethod
-    def filter(database, args):
+    @classmethod
+    def filter(cls, database, args):
         datas = []
+        amount = 0
+        quantity = 0
 
         for expense in database:
             date = datetime.strptime(expense['date'], '%d/%m/%Y')
@@ -46,5 +50,20 @@ class Read:
             if args.amount is not None:
                 if args.amount != expense['amount']:
                     continue
+        
+            amount += expense["amount"] 
+            quantity += 1
+
             datas.append(expense)
         Read.list(datas)
+
+        if args.summary is not None:
+            print(f"Results: {quantity} | Total amount: {amount}")
+        
+        if args.export is not None:
+            JsonOperations.EXPORT_PATH.touch(exist_ok=True)
+            with open(JsonOperations.EXPORT_PATH, "w+", encoding="UTF-8", newline='') as file:
+                csv_writer = csv.writer(file)
+                csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
+                for line in datas:
+                    csv_writer.writerow([line["id"], line["amount"], line["date"], line["category"], line["description"] if line["description"] else '-'])      

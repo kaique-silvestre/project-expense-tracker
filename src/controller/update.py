@@ -4,9 +4,9 @@ from controller.json_operations import JsonOperations
 # Fazer a atualização da data corretamente
 
 class Update:
-    @staticmethod
-    def update(database, args):
 
+    @classmethod
+    def update(cls, database, args):
         new_list = copy(database)
 
         for item in new_list:

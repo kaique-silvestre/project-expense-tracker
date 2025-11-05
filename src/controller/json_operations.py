@@ -7,6 +7,7 @@ class JsonOperations:
     model_folder = folder_path / database_folder_name
     BUDGET_FILE = model_folder / "budget.json"
     DATABASE_FILE = model_folder / "database.json"
+    EXPORT_PATH = pathlib.Path(__file__).parent.parent / "model" / "expeneses.csv"
 
     STRUCT = \
     {

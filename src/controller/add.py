@@ -13,7 +13,6 @@ class Add:
         self.add(database, args)
 
 
-
     def add(self, database, args):  
         values = {"id": 1, "amount": args.amount, "category": args.category, "date": self.date_validation(args.date), "description": args.description}
         if len(database) >= 1:
@@ -22,8 +21,6 @@ class Add:
         database.append(values)
         JsonOperations.send_json(JsonOperations.DATABASE_FILE, database)
         print(f"\n# Expense added successfully (ID: {values['id']})\n")
-
-
 
 
     def date_validation(self, date):
