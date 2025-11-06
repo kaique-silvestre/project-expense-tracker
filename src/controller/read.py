@@ -66,4 +66,15 @@ class Read:
                 csv_writer = csv.writer(file)
                 csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
                 for line in datas:
-                    csv_writer.writerow([line["id"], line["amount"], line["date"], line["category"], line["description"] if line["description"] else '-'])      
+                    csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])      
+    @classmethod
+    def export(cls, path, database):
+        JsonOperations.EXPORT_PATH.touch(exist_ok=True)
+        with open(path, "w+", encoding="UTF-8", newline='') as file:
+            csv_writer = csv.writer(file)
+            csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
+            for line in database:
+                csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])      
+
+
+        ...

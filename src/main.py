@@ -75,7 +75,7 @@ budget_database = JsonOperations.return_json(JsonOperations.BUDGET_FILE)
 
 
 if args.command == "add":
-    a.add_flow(database, args)
+    a.add_flow(database, args, budget_database)
 elif args.command == "delete":
     Delete.delete(database, args)
 elif args.command == "update":

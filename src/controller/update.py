@@ -1,7 +1,6 @@
 from copy import copy
 from controller.json_operations import JsonOperations
-
-# Fazer a atualização da data corretamente
+from controller.validation import Validation
 
 class Update:
 
@@ -17,5 +16,8 @@ class Update:
                     item['description'] = args.description
                 if args.category:
                     item['category'] = args.category
-                # DATA 
+                if args.date:
+                    date = Validation.str_to_date(args.date)
+                    date_str = Validation.date_to_str(date) 
+                    item['date'] = date_str
         JsonOperations.send_json(JsonOperations.DATABASE_FILE, new_list)

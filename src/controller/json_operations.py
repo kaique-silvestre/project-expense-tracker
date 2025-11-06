@@ -26,7 +26,6 @@ class JsonOperations:
     }
 
     def creation(self):
-        self.create_folder()
         self.create_file()
         self.send_keys_budget()
         self.send_keys_database()
@@ -62,17 +61,3 @@ class JsonOperations:
         with open(path_file, "w+", encoding='utf-8') as file:
             json.dump(database, file, indent=4)
 
-
-
-
-
-        
-
-    def create_folder(self):...
-
-if __name__ == "__main__":
-    jsons = JsonOperations()
-
-    jsons.create_file()
-    jsons.send_keys_budget()
-    jsons.send_keys_database()

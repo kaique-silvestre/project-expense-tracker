@@ -1,5 +1,5 @@
 from controller.json_operations import JsonOperations
-from controller.read import Read
+from datetime import datetime
 
 class Budget:
 
@@ -21,7 +21,11 @@ class Budget:
                 print(line[0], line[1]) # Fazer texto
         else:
             for mes, valor in database_budget[0].items():
-                if mes in args.month:
+                if int(mes) in args.month:
                     print(mes, valor) # Fazer texto
 
+    @classmethod
+    def return_budget(cls, budget_file, args):
+        date = datetime.strptime(args.date, '%d/%m/%Y')
+        print(date, type(date))
 
