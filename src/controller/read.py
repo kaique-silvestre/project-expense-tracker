@@ -1,5 +1,6 @@
 from datetime import datetime
 from controller.json_operations import JsonOperations
+from controller.validation import Validation
 import csv
 
 class Read:
@@ -23,7 +24,7 @@ class Read:
         amount = quantity = 0
 
         for expense in database:
-            date = datetime.strptime(expense['date'], '%d/%m/%Y')
+            date = Validation.str_to_date(expense["date"])
 
 
             if args.year is not None:
@@ -54,6 +55,7 @@ class Read:
             quantity += 1
 
             datas.append(expense)
+       
         Read.list(datas)
 
         if args.summary is not None:
@@ -70,3 +72,52 @@ class Read:
             csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
             for line in database:
                 csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])     
+
+    @classmethod
+    def alt(cls):
+        # create the folder (if exist ok, create parents)
+        # filtrar dados para exportar
+        # Tirar a possibilidade de exportar da função LIST e adicionar a função de listar a função própria de exportação
+        # dessa forma podemos ampliar as possibilidades da função de exportar -- exportar com filtros, exportar em CSV e PDF, exportar pro caminho desejado e criado quando não houver
+        ...
+
+    @classmethod 
+    def real_filter(cls, database, args):
+        datas = []
+        amount = quantity = 0
+
+        for expense in database:
+            date = Validation.str_to_date(expense["date"])
+
+
+            if args.year is not None:
+                if args.year != date.year:
+                    continue
+            
+            if args.month is not None:
+                if args.month != date.month:
+                    continue
+            
+            if args.category is not None:
+                if args.category != expense['category']:
+                    continue
+            
+            if args.less is not None:
+                if args.less <= expense['amount']:
+                    continue
+            
+            if args.greater is not None:
+                if args.greater >= expense['amount']:
+                    continue
+                      
+            if args.amount is not None:
+                if args.amount != expense['amount']:
+                    continue
+        
+            amount += expense["amount"] 
+            quantity += 1
+
+            datas.append(expense)
+
+            return datas, quantity, amount
+

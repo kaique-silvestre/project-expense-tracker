@@ -42,7 +42,7 @@ class JsonOperations:
     @classmethod
     def create_folders(cls, *folders: pathlib.Path):
         for folder in folders:
-            folder.mkdir(exist_ok=True)
+            folder.mkdir(exist_ok=True, parents=True)
 
     @classmethod
     def send_budget_keys(cls):
