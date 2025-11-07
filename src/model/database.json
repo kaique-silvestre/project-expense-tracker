@@ -1,37 +1,16 @@
 [
     {
         "id": 1,
-        "amount": 200.0,
+        "amount": 500.0,
         "category": null,
         "date": "06/11/2025",
         "description": null
     },
     {
         "id": 2,
-        "amount": 200.0,
+        "amount": 500.0,
         "category": null,
         "date": "06/11/2025",
-        "description": null
-    },
-    {
-        "id": 3,
-        "amount": 50.0,
-        "category": null,
-        "date": "10/10/2025",
-        "description": null
-    },
-    {
-        "id": 4,
-        "amount": 50.0,
-        "category": null,
-        "date": "10/10/2025",
-        "description": null
-    },
-    {
-        "id": 5,
-        "amount": 50.0,
-        "category": null,
-        "date": "01/01/2024",
         "description": null
     }
 ]

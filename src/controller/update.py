@@ -1,4 +1,4 @@
-from copy import copy
+from copy import deepcopy
 from controller.json_operations import JsonOperations
 from controller.validation import Validation
 
@@ -6,8 +6,7 @@ class Update:
 
     @classmethod
     def update(cls, database, args):
-        new_list = copy(database)
-
+        new_list = deepcopy(database)
         for item in new_list:
             if item['id'] in args.id:
                 if args.amount:
@@ -21,3 +20,4 @@ class Update:
                     date_str = Validation.date_to_str(date) 
                     item['date'] = date_str
         JsonOperations.send_json(JsonOperations.DATABASE_FILE, new_list)
+        print("Successfully updated.")

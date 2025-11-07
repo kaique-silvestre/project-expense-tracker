@@ -25,26 +25,36 @@ class JsonOperations:
         12: None,
     }
 
-    def creation(self):
-        self.create_file()
-        self.send_keys_budget()
-        self.send_keys_database()
 
 
-    def create_file(self):
-        self.model_folder.mkdir(exist_ok=True)
-        self.BUDGET_FILE.touch(exist_ok=True)
-        self.DATABASE_FILE.touch(exist_ok=True)
+    @classmethod
+    def creation(cls):
+        cls.create_folders(cls.model_folder)
+        cls.create_files(cls.BUDGET_FILE, cls.DATABASE_FILE)
+        cls.send_budget_keys()
+        cls.send_database_keys()
 
-    def send_keys_budget(self):
-        with open(self.BUDGET_FILE, "r+", encoding="UTF-8") as file:
+    @classmethod
+    def create_files(cls, *file_list):
+        for file in file_list:
+            file.touch(exist_ok=True)
+
+    @classmethod
+    def create_folders(cls, *folders: pathlib.Path):
+        for folder in folders:
+            folder.mkdir(exist_ok=True)
+
+    @classmethod
+    def send_budget_keys(cls):
+        with open(cls.BUDGET_FILE, "r+", encoding="UTF-8") as file:
             try: 
                 data = json.load(file)
             except json.JSONDecodeError:
-                json.dump([self.STRUCT], file, indent=4)
+                json.dump([cls.STRUCT], file, indent=4)
 
-    def send_keys_database(self):
-        with open(self.DATABASE_FILE, "r+", encoding="UTF-8") as file:
+    @classmethod
+    def send_database_keys(cls):
+        with open(cls.DATABASE_FILE, "r+", encoding="UTF-8") as file:
             try: 
                 data = json.load(file)
             except json.JSONDecodeError:

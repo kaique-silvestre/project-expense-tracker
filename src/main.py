@@ -47,7 +47,7 @@ budget_set.add_argument("value")
 budget_set.add_argument("month")
 
 # BUDGET SUBPARSER -- REMOVE
-budget_remove = subparser_budget.add_parser("remove")
+budget_remove = subparser_budget.add_parser("delete")
 budget_remove.add_argument("month", type=int, nargs="+")
 
 # BUDGET SUBPARSER -- LIST
@@ -64,32 +64,31 @@ subparser_update.add_argument("-c", "--category", type=str)
 
 args = parser.parse_args()
 
-js = JsonOperations()
-
-js.creation()
+JsonOperations.creation()
 
 a = Add()
 
 database = JsonOperations.return_json(JsonOperations.DATABASE_FILE)
-budget_database = JsonOperations.return_json(JsonOperations.BUDGET_FILE)
 
 
-if args.command == "add":
-    a.add_flow(database, args, budget_database)
-elif args.command == "delete":
-    Delete.delete(database, args)
-elif args.command == "update":
-    Update.update(database, args)
-elif args.command == "list":
+if args.command == "add":##
+    a.add_flow(database, args)
+elif args.command == "delete": ##
+    Delete.delete(database, args) # OK / MSG
+elif args.command == "update": ##
+    Update.update(database, args)  # OK / MSG
+elif args.command == "list": ##
     Read.filter(database, args)
-elif args.command == "clear":
-    JsonOperations.send_json(JsonOperations.DATABASE_FILE, [])
+elif args.command == "clear": ## 
+    JsonOperations.send_json(JsonOperations.DATABASE_FILE, []) # OK /MSG
+    print("# Successfully cleared spends database.")
 elif args.command == "budget":
+    budget_database = JsonOperations.return_json(JsonOperations.BUDGET_FILE) # Just loads if budget is called
     if args.command_budget == "set":
-        Budget.budget_set(budget_database, args)
+        Budget.set_budget(budget_database, args) # OK / MSG
     elif args.command_budget == "list":
-        Budget.budget_list(budget_database, args)
-    elif args.command_budget == "remove":
-        Budget.budget_remove(budget_database, args)
+        Budget.list_budget(budget_database, args) # OK / MSG
+    elif args.command_budget == "delete":
+        Budget.delete_budget(budget_database, args) # OK  / # MSG
 
 

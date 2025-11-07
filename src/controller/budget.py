@@ -4,28 +4,26 @@ from datetime import datetime
 class Budget:
 
     @classmethod
-    def budget_set(cls, budget_database, args):
+    def set_budget(cls, budget_database, args):
         budget_database[0][str(args.month)] = int(args.value)
         JsonOperations.send_json(JsonOperations.BUDGET_FILE, budget_database)
+        print("Successfully set.")
+
     
     @classmethod
-    def budget_remove(cls, budget_database, args):
+    def delete_budget(cls, budget_database, args):
         for item in args.month:
             budget_database[0][str(item)] = None
         JsonOperations.send_json(JsonOperations.BUDGET_FILE, budget_database)
+        print("Successfully deleted.")
     
     @classmethod
-    def budget_list(cls, database_budget, args):
+    def list_budget(cls, database_budget, args):
+        print("=== Budget List ===")
         if args.month is None:
-            for line in database_budget[0].items():
-                print(line[0], line[1]) # Fazer texto
+            for month, value in database_budget[0].items():
+                print(f"Month: {month} | Budget: {value if value is not None else '-'}") # inline validation of the value
         else:
-            for mes, valor in database_budget[0].items():
-                if int(mes) in args.month:
-                    print(mes, valor) # Fazer texto
-
-    @classmethod
-    def return_budget(cls, budget_file, args):
-        date = datetime.strptime(args.date, '%d/%m/%Y')
-        print(date, type(date))
-
+            for month, value in database_budget[0].items():
+                if int(month) in args.month:
+                    print(f"Month: {month} | Budget: {value if value is not None else '-'}") # inline validation of the value

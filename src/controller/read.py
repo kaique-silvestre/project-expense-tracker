@@ -7,7 +7,7 @@ class Read:
     @staticmethod
     def list(database):
         if not database:
-            print("# Nenhum gasto registrado ainda.")
+            print("\n# No expenses recorded yet.")
         else:
             print("-" * 80)
             print(f"{'ID':<5} {'AMOUNT':<15} {'DATE':<15} {'CATEGORY':<15} {'DESCRIPTION'}")
@@ -20,8 +20,7 @@ class Read:
     @classmethod
     def filter(cls, database, args):
         datas = []
-        amount = 0
-        quantity = 0
+        amount = quantity = 0
 
         for expense in database:
             date = datetime.strptime(expense['date'], '%d/%m/%Y')
@@ -61,20 +60,13 @@ class Read:
             print(f"Results: {quantity} | Total amount: {amount}")
         
         if args.export is not None:
-            JsonOperations.EXPORT_PATH.touch(exist_ok=True)
-            with open(JsonOperations.EXPORT_PATH, "w+", encoding="UTF-8", newline='') as file:
-                csv_writer = csv.writer(file)
-                csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
-                for line in datas:
-                    csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])      
+            cls.export(datas) 
+
     @classmethod
-    def export(cls, path, database):
+    def export(cls, database):
         JsonOperations.EXPORT_PATH.touch(exist_ok=True)
-        with open(path, "w+", encoding="UTF-8", newline='') as file:
+        with open(JsonOperations.EXPORT_PATH, "w+", encoding="UTF-8", newline='') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
             for line in database:
-                csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])      
-
-
-        ...
+                csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])     

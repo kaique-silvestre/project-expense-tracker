@@ -1,6 +1,7 @@
 from controller.json_operations import JsonOperations
 from controller.budget import Budget
 from datetime import datetime
+from controller.validation import Validation
 
 
 # Verificar a adição de zero
@@ -8,9 +9,7 @@ from datetime import datetime
 class Add:
     date_format = "%d/%m/%Y"
 
-    def add_flow(self, database, args, budget_file):
-        # Correção de data 
-        # Adição
+    def add_flow(self, database, args):
         self.add(database, args)
 
 
@@ -18,17 +17,8 @@ class Add:
         values = {"id": 1, "amount": args.amount, "category": args.category, "date": self.date_validation(args.date), "description": args.description}
 
         # Validating if the amount added in the month blows the budget, it will become a function
-        total_budget = values["amount"]
-        ty = datetime.strptime(values["date"], self.date_format)
-        if ty.year == datetime.today().year:
-            budget_value = JsonOperations.return_json(JsonOperations.BUDGET_FILE)
-            if budget_value[0][str(ty.month)] is not None:
-                for item in database:
-                    ty2 = datetime.strptime(item["date"], self.date_format)
-                    if ty.month == ty2.month:
-                        total_budget += item["amount"]
-                if total_budget > budget_value[0][str(ty.month)]:
-                    print("ERRO", total_budget, budget_value[0][str(ty.month)])
+
+        Validation.budget_validation(database, values)
 
         if len(database) >= 1:
             real_id = database[-1]["id"] + 1
