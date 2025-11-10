@@ -36,8 +36,10 @@ class JsonOperations:
 
     @classmethod
     def create_files(cls, *file_list):
+
         for file in file_list:
-            file.touch(exist_ok=True)
+            file_path = pathlib.Path(file)
+            file_path.touch(exist_ok=True)
 
     @classmethod
     def create_folders(cls, *folders: pathlib.Path):

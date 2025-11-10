@@ -64,8 +64,15 @@ subparser_update.add_argument("-c", "--category", type=str)
 
 # Export 
 subparser_export = subparser.add_parser("export")
-subparser_export.add_argument("file_name")
-subparser_export.add_argument("folder_path")
+subparser_export.add_argument("file")
+subparser_export.add_argument("--folder")
+subparser_export.add_argument("-y","--year", type=int)
+subparser_export.add_argument("-m","--month", type=int)
+subparser_export.add_argument("-c", "--category", type=str)
+subparser_export.add_argument("-l", "--less", type=int)
+subparser_export.add_argument("-g", "--greater", type=int)
+subparser_export.add_argument("-a", "--amount", type=int)
+
 
 
 args = parser.parse_args()
@@ -89,8 +96,7 @@ elif args.command == "clear": ##
     JsonOperations.send_json(JsonOperations.DATABASE_FILE, []) # OK /MSG
     print("# Successfully cleared spends database.")
 elif args.command == "export":
-    print(True)
-    Read.export(database)
+    Read.alt(database, args)
 elif args.command == "budget":
     budget_database = JsonOperations.return_json(JsonOperations.BUDGET_FILE) # Just loads if budget is called
     if args.command_budget == "set":

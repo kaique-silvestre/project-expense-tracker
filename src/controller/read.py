@@ -2,6 +2,8 @@ from datetime import datetime
 from controller.json_operations import JsonOperations
 from controller.validation import Validation
 import csv
+import os
+import pathlib
 
 class Read:
     
@@ -65,21 +67,38 @@ class Read:
             cls.export(datas) 
 
     @classmethod
-    def export(cls, database):
-        JsonOperations.EXPORT_PATH.touch(exist_ok=True)
-        with open(JsonOperations.EXPORT_PATH, "w+", encoding="UTF-8", newline='') as file:
+    def export(cls, database, path):
+        with open(path, "w+", encoding="utf8", newline='') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
             for line in database:
                 csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])     
 
     @classmethod
-    def alt(cls):
-        # create the folder (if exist ok, create parents)
+    def alt(cls, database, args):
+        # 
+        if args.folder is not None:
+            folder_path = pathlib.Path(args.folder)
+        else:
+            folder_path = pathlib.Path.home() / "Desktop"
+
+        csv_var = ".csv"
+        pdf_var = ".pdf"
+        desktop_path = pathlib.Path.home() / "Desktop"
+        file_str = args.file + csv_var
+        file_name = pathlib.Path(file_str)
+        complete_path = folder_path / file_name
+        print(complete_path)
+
+        data = cls.real_filter(database, args)
+        cls.export(data, complete_path)
+
+        
+        
+        
         # filtrar dados para exportar
         # Tirar a possibilidade de exportar da função LIST e adicionar a função de listar a função própria de exportação
         # dessa forma podemos ampliar as possibilidades da função de exportar -- exportar com filtros, exportar em CSV e PDF, exportar pro caminho desejado e criado quando não houver
-        ...
 
     @classmethod 
     def real_filter(cls, database, args):
@@ -118,6 +137,6 @@ class Read:
             quantity += 1
 
             datas.append(expense)
+        return datas
 
-            return datas, quantity, amount
 
