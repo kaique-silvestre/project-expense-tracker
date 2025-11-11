@@ -27,7 +27,7 @@ class Validation:
                     database_expense =  Validation.str_to_date(item["date"])
                     if expense_date.month == database_expense.month:
                         total_spends += item["amount"]
-                if total_spends > budget_value[0][str(expense_date.month)]:
+                if total_spends >= budget_value[0][str(expense_date.month)]:
                     print(f"\n[ERROR]: Monthly budget exceeded. Total spends/Monthly Budget: {total_spends}/{budget_value[0][str(expense_date.month)]}")
 
 

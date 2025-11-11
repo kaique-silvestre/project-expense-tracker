@@ -1,11 +1,12 @@
 from controller.json_operations import JsonOperations
 from datetime import datetime
 
-class Budget:
 
+class Budget:
+    # Arrumar o set -- menos validações agressivas -- Melhor lógica
     @classmethod
     def set_budget(cls, budget_database, args):
-        budget_database[0][str(args.month)] = int(args.value)
+        budget_database[0][str(int(args.month))] = int(args.value)
         JsonOperations.send_json(JsonOperations.BUDGET_FILE, budget_database)
         print("Successfully set.")
 

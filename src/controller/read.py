@@ -1,9 +1,9 @@
 from datetime import datetime
 from controller.json_operations import JsonOperations
 from controller.validation import Validation
-import csv
-import os
-import pathlib
+
+
+# Tirar as duas filtragens "filter" arrumar a lógica para só uma
 
 class Read:
     
@@ -66,40 +66,9 @@ class Read:
         if args.export is not None:
             cls.export(datas) 
 
-    @classmethod
-    def export(cls, database, path):
-        with open(path, "w+", encoding="utf8", newline='') as file:
-            csv_writer = csv.writer(file)
-            csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
-            for line in database:
-                csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])     
-
-    @classmethod
-    def alt(cls, database, args):
-        # 
-        if args.folder is not None:
-            folder_path = pathlib.Path(args.folder)
-        else:
-            folder_path = pathlib.Path.home() / "Desktop"
-
-        csv_var = ".csv"
-        pdf_var = ".pdf"
-        desktop_path = pathlib.Path.home() / "Desktop"
-        file_str = args.file + csv_var
-        file_name = pathlib.Path(file_str)
-        complete_path = folder_path / file_name
-        print(complete_path)
-
-        data = cls.real_filter(database, args)
-        cls.export(data, complete_path)
-
         
         
-        
-        # filtrar dados para exportar
-        # Tirar a possibilidade de exportar da função LIST e adicionar a função de listar a função própria de exportação
-        # dessa forma podemos ampliar as possibilidades da função de exportar -- exportar com filtros, exportar em CSV e PDF, exportar pro caminho desejado e criado quando não houver
-
+    
     @classmethod 
     def real_filter(cls, database, args):
         datas = []
