@@ -7,6 +7,10 @@ from controller.update import Update
 from controller.read import Read
 from controller.budget import Budget
 from controller.export import Export
+from controller.validation import Validation
+
+Val = Validation()
+
 
 parser = argparse.ArgumentParser()
 
@@ -106,6 +110,7 @@ elif args.command == "delete": ##
 
     # Validar números negativos
     # Validar zero
+    Val.delete_validation(args)
     Delete.delete(database, args) # OK / MSG
 
 elif args.command == "update": 

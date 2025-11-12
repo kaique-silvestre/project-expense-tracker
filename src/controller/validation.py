@@ -30,6 +30,13 @@ class Validation:
                 if total_spends >= budget_value[0][str(expense_date.month)]:
                     print(f"\n[ERROR]: Monthly budget exceeded. Total spends/Monthly Budget: {total_spends}/{budget_value[0][str(expense_date.month)]}")
 
+    def delete_validation(self, args):
+        self.is_positive(args.id)
+    
+    def is_positive(self, numbers):
+        for number in numbers:
+            if number <= 0:
+                raise Exception()
 
 if __name__ == "__main__":
     date = Validation.str_to_date("31/10/2025")
