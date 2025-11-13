@@ -17,7 +17,7 @@ class Export:
         complete_path = folder_path / file_name
         print(f"\n# CSV file was exproted to: {complete_path}\n")
 
-        data = Read.real_filter(database, args)
+        data, var1, var2 = Read.filter(database, args)
         cls.export(data, complete_path)
 
     @classmethod

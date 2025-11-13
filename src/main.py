@@ -29,14 +29,14 @@ subparser_clear = subparser.add_parser("clear", help="")
 
 # LIST SUBPARSER
 subparser_list = subparser.add_parser("list")
-subparser_list.add_argument("-y","--year", type=int, help="")
-subparser_list.add_argument("-m","--month", type=int, help="")
+subparser_list.add_argument("--id", type=int, nargs="+", help="")
+subparser_list.add_argument("-y","--year", type=int, nargs="+", help="")
+subparser_list.add_argument("-m","--month", type=int, nargs="+", help="")
 subparser_list.add_argument("-c", "--category", type=str, help="")
 subparser_list.add_argument("-l", "--less", type=int, help="")
 subparser_list.add_argument("-g", "--greater", type=int, help="")
 subparser_list.add_argument("-a", "--amount", type=int, help="")
 subparser_list.add_argument("-s", "--summary", action="store_const", const=True, help="")
-subparser_list.add_argument("-e", "--export", action="store_const", const=True, help="")
 
 # BUDGET SUBPARSER
 budget_parser = subparser.add_parser("budget")
@@ -68,8 +68,9 @@ subparser_update.add_argument("-c", "--category", type=str, help="")
 subparser_export = subparser.add_parser("export")
 subparser_export.add_argument("file")
 subparser_export.add_argument("--folder")
-subparser_export.add_argument("-y","--year", type=int, help="")
-subparser_export.add_argument("-m","--month", type=int, help="")
+subparser_export.add_argument("--id", nargs="+", type=int, help="")
+subparser_export.add_argument("-y","--year", nargs="+", type=int, help="")
+subparser_export.add_argument("-m","--month", nargs="+", type=int, help="")
 subparser_export.add_argument("-c", "--category", type=str, help="")
 subparser_export.add_argument("-l", "--less", type=int, help="")
 subparser_export.add_argument("-g", "--greater", type=int, help="")
@@ -101,8 +102,7 @@ elif args.command == "update":
     
 elif args.command == "list":
 
-    Val.list_validation(args)
-    Read.filter(database, args)
+    Read.list_flow(database, args)
 
 elif args.command == "clear": 
 

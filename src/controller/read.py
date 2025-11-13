@@ -7,8 +7,8 @@ from controller.validation import Validation
 
 class Read:
     
-    @staticmethod
-    def list(database):
+    @classmethod
+    def list(cls, database):
         if not database:
             print("\n# No expenses recorded yet.")
         else:
@@ -21,6 +21,22 @@ class Read:
 
 
     @classmethod
+    def list_flow(cls, database, args):
+        datas = []
+        amount = quantity = 0
+
+        datas, amount, quantity = cls.filter(database, args)
+       
+        Read.list(datas)
+
+        print(args.summary)
+        if args.summary is not None:
+            print(f"Results: {quantity} | Total amount: {amount}")
+        
+        
+        
+    
+    @classmethod 
     def filter(cls, database, args):
         datas = []
         amount = quantity = 0
@@ -28,13 +44,17 @@ class Read:
         for expense in database:
             date = Validation.str_to_date(expense["date"])
 
+            if args.id is not None:
+                if expense['id'] not in list(args.id):
+                    continue
+
 
             if args.year is not None:
-                if args.year != date.year:
+                if date.year not in list(args.year):
                     continue
             
             if args.month is not None:
-                if args.month != date.month:
+                if date.month not in list(args.month):
                     continue
             
             if args.category is not None:
@@ -57,55 +77,6 @@ class Read:
             quantity += 1
 
             datas.append(expense)
-       
-        Read.list(datas)
-
-        if args.summary is not None:
-            print(f"Results: {quantity} | Total amount: {amount}")
-        
-        if args.export is not None:
-            cls.export(datas) 
-
-        
-        
-    
-    @classmethod 
-    def real_filter(cls, database, args):
-        datas = []
-        amount = quantity = 0
-
-        for expense in database:
-            date = Validation.str_to_date(expense["date"])
-
-
-            if args.year is not None:
-                if args.year != date.year:
-                    continue
-            
-            if args.month is not None:
-                if args.month != date.month:
-                    continue
-            
-            if args.category is not None:
-                if args.category != expense['category']:
-                    continue
-            
-            if args.less is not None:
-                if args.less <= expense['amount']:
-                    continue
-            
-            if args.greater is not None:
-                if args.greater >= expense['amount']:
-                    continue
-                      
-            if args.amount is not None:
-                if args.amount != expense['amount']:
-                    continue
-        
-            amount += expense["amount"] 
-            quantity += 1
-
-            datas.append(expense)
-        return datas
+        return datas, amount, quantity
 
 
