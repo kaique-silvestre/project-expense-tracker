@@ -15,7 +15,7 @@ class Export:
         file_str = args.file + csv_var
         file_name = pathlib.Path(file_str)
         complete_path = folder_path / file_name
-        print(complete_path)
+        print(f"\n# CSV file was exproted to: {complete_path}\n")
 
         data = Read.real_filter(database, args)
         cls.export(data, complete_path)
@@ -28,6 +28,6 @@ class Export:
             csv_writer = csv.writer(file)
             csv_writer.writerow(["ID", "AMOUNT", "DATE", "CATEGORY", "DESCRIPTION"])
             for line in database:
-                csv_writer.writerow([line["id"] if line['id'] else '-', line["amount"] if line['amount'] else '-', line["date"] if line['date'] else '-', line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])     
+                csv_writer.writerow([line["id"], line["amount"], line["date"], line["category"] if line["category"] else '-', line["description"] if line["description"] else '-'])     
 
 

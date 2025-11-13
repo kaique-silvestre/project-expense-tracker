@@ -8,7 +8,7 @@ class Budget:
     def set_budget(cls, budget_database, args):
         budget_database[0][str(int(args.month))] = int(args.value)
         JsonOperations.send_json(JsonOperations.BUDGET_FILE, budget_database)
-        print("Successfully set.")
+        print("\n# Successfully set.\n")
 
     
     @classmethod
@@ -16,7 +16,7 @@ class Budget:
         for item in args.month:
             budget_database[0][str(item)] = None
         JsonOperations.send_json(JsonOperations.BUDGET_FILE, budget_database)
-        print("Successfully deleted.")
+        print("\n# Successfully deleted.\n")
     
     @classmethod
     def list_budget(cls, database_budget, args):

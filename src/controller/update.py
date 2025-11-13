@@ -20,4 +20,4 @@ class Update:
                     date_str = Validation.date_to_str(date) 
                     item['date'] = date_str
         JsonOperations.send_json(JsonOperations.DATABASE_FILE, new_list)
-        print("Successfully updated.")
+        print("\n# Successfully updated.\n")

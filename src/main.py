@@ -10,24 +10,21 @@ from controller.export import Export
 from controller.validation import Validation
 
 Val = Validation()
-
-
 parser = argparse.ArgumentParser()
-
 subparser = parser.add_subparsers(dest="command")
 
 # ADD SUBPARSER
-subparser_add = subparser.add_parser("add", help="")
-subparser_add.add_argument("amount", type=float, help="")
-subparser_add.add_argument("-c", "--category", type=str, default=None, help="")
-subparser_add.add_argument("-D", "--date", type=str, default=None, help="")
-subparser_add.add_argument("-d", "--description", type=str, default=None, help="")
+subparser_add = subparser.add_parser("add", help="Add a new transaction with a specified amount, category, date, and description.")
+subparser_add.add_argument("amount", type=float, help="The monetary amount of the transaction. Use negative values for expenses and positive for income.")
+subparser_add.add_argument("-c", "--category", type=str, default=None, help="The category of the transaction (e.g., food, transport, salary).")
+subparser_add.add_argument("-D", "--date", type=str, default=None, help="The date of the transaction in DD-MM-YYYY format. Defaults to today's date if not provided.")
+subparser_add.add_argument("-d", "--description", type=str, default=None, help="A short optional description or note about the transaction.")
 
 # DELETE SUPARSER
 subparser_delete = subparser.add_parser("delete", help="")
 subparser_delete.add_argument("id", type=int, nargs="+", help="")
 
-# CLEAR SUBPARSER
+# CLEAR SUBPARSER 
 subparser_clear = subparser.add_parser("clear", help="")
 
 # LIST SUBPARSER
@@ -48,16 +45,16 @@ subparser_budget = budget_parser.add_subparsers(dest="command_budget")
 
 # BUDGET SUBPARSER -- SET
 budget_set = subparser_budget.add_parser("set")
-budget_set.add_argument("value", help="")
-budget_set.add_argument("month", help="")
+budget_set.add_argument("value", type=int, help="")
+budget_set.add_argument("month", type=int, help="")
 
-# BUDGET SUBPARSER -- REMOVE
+# BUDGET SUBPARSER -- DELETE
 budget_remove = subparser_budget.add_parser("delete")
 budget_remove.add_argument("month", type=int, nargs="+", help="")
 
 # BUDGET SUBPARSER -- LIST
 budget_list = subparser_budget.add_parser("list")
-budget_list.add_argument("-m", "--month", type=int, nargs="+", help="")
+budget_list.add_argument("-m", "--month", type=int, nargs="+", help="",)
 
 # UPDATE SUBPARSER  
 subparser_update = subparser.add_parser("update")
@@ -84,113 +81,54 @@ args = parser.parse_args()
 
 JsonOperations.creation()
 
-a = Add()
-
 database = JsonOperations.return_json(JsonOperations.DATABASE_FILE)
 
 
 if args.command == "add":
 
-    # amount
-    # - Ser maior que zero
-    # - Apenas duas casas decimais
+    Val.add_validation(args)
+    Add.add(database, args)
 
-    # category 
-    #  - <= 20 Letras de lenght
+elif args.command == "delete": 
 
-    # date 
-
-    # description
-    # <= 100 letras
-
-
-    a.add_flow(database, args)
-
-elif args.command == "delete": ##
-
-    # Validar números negativos
-    # Validar zero
     Val.delete_validation(args)
-    Delete.delete(database, args) # OK / MSG
+    Delete.delete(database, args)
 
 elif args.command == "update": 
 
-    # id
-    # - Validar para que seja maior que zero
+    Val.update_validation(args)
+    Update.update(database, args)
     
-    # amount
-    # - Validar números negativos
-    # - Validar zero
-    # - Validar que números não sejam maior que 100_000_000_000_000 
-    # - Validar para que número tenha apenas duas casas decimais
+elif args.command == "list":
 
-    # description
-    # - Validar que descrição não tenha mais de 100 letras
-
-    # date
-    # - Validar data?
-
-    # category
-    # Validar que categoria não tenha mais de 20 Letras
-    # Validar para que sejam UPPER CASE?
-
-    Update.update(database, args)  # OK / MSG
-    
-elif args.command == "list": ##
-
-    # year
-    # - Ser maior que zero
-    # - Ser menor que 10.000?
-    
-    # month
-    # - Estar entre 1 e 12
-
-    # category
-    # - Validar que categoria não tenha mais de 20 Letras
-    # - Validar para que sejam UPPER CASE?
-
-    # less
-    # - Ser maior que zero
-    # - ter apenas duas casas decimais
-
-    
-    # greater
-    # - Ser maior que zero
-    # - ter apenas duas casas decimais
-
-
-    # amount
-    # - Ser maior que zero
-    # - ter apenas duas casas decimais
-
+    Val.list_validation(args)
     Read.filter(database, args)
 
 elif args.command == "clear": 
-    JsonOperations.send_json(JsonOperations.DATABASE_FILE, []) # OK /MSG
-    print("# Successfully cleared spends database.")
+
+    JsonOperations.send_json(JsonOperations.DATABASE_FILE, [])
+    print("\n# Successfully cleared spends database.\n")
+
 elif args.command == "export":
+
+    Val.list_validation(args)
     Export.csv_export_flow(database, args)
+
 elif args.command == "budget":
-    budget_database = JsonOperations.return_json(JsonOperations.BUDGET_FILE) # Just loads if budget is called
+    budget_database = JsonOperations.return_json(JsonOperations.BUDGET_FILE) 
     
     if args.command_budget == "set":
         
-        # value 
-        # - Ser maior que zero e positivo
-        # - Ter duas casas decimais
-
-        # month
-        # - Estar entre 1 e 12
-
-        Budget.set_budget(budget_database, args) # OK / MSG
+        Val.budget_set_validation(args)
+        Budget.set_budget(budget_database, args) 
 
     elif args.command_budget == "list":
-        Budget.list_budget(budget_database, args) # OK / MSG
+
+        Budget.list_budget(budget_database, args)
     
     elif args.command_budget == "delete":
 
-        # delete 
-        # - Ser maior que zero e positvo
-        Budget.delete_budget(budget_database, args) # OK  / # MSG
+        Val.budget_delete_validation(args)
+        Budget.delete_budget(budget_database, args) 
 
 
