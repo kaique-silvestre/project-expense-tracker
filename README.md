@@ -1,10 +1,11 @@
-# project - Expanse Trancker 
+github: https://github.com/kaique-silvestre/project-expense-tracker
+# Expanse Tracker 
 
 ## About the Project
 
-This project is called "expense-tracker" a challenge proposed by roadmap.sh: [text](https://roadmap.sh/projects/expense-tracker)
+This project is called "expense-tracker" a challenge proposed by: [roadmap.sh](https://roadmap.sh/projects/expense-tracker)
 
-This application allows the user to track their spends. It is a classic CRUD with the data being stored in a JSON file. You can: Add, delete, update and list the expenses.
+This application allows the user to track their spends. It is a classic CRUD with the data being stored in a JSON file. You can: Add, delete, update, set monthly budgets, list and export (both with filters)
 
 you can also define a monthly budget to each month of the actual year, if you spend more than expected you will be notified
 
@@ -17,15 +18,19 @@ DESCRIPTION -- A string represiting a description for the spend, you can write a
 
 ## What are the Commands?
 
-### ADD
+### add
 
-The command add an expense into the JSON file -- the database.
+it saves an expense in the database
 
-The argumets are:
-amount: required
-date: -D, --date
-category: -c, --category
-description: -d, --description
+The arguments are:
+<ul>
+<li>amount: required<br/>
+<li>-D, --date<br>
+<li>-c, --category<br/>
+<li> -d, --description
+</ul>
+
+
 
 What you cannot do: 
 - Amount cannot be zero, negative or null and cannot be more than 1_000_000_000
@@ -34,8 +39,8 @@ What you cannot do:
 - description cannot have a len higher than 100
 
 
-- add 1000
->>> { id": 1, "amount": 1000.0, "category": null, "date": "13/11/2025", "description": null }
+- add 1000 <br/>
+<code>{ id": 1, "amount": 1000.0, "category": null, "date": "13/11/2025", "description": null }<code/>
 
 - add 1000 -c Food -d "A hotdog bought in the store"
 >>> { id": 2, "amount": 1000.0, "category": "Food", "date": "13/11/2025", "description": "A hotdog bought in the store" }
@@ -93,7 +98,7 @@ What you cannot do:
 
 ### list
 
-Using this command you will view all registered expenses. But you can also filter a custom view of the data. the arguments will be introduced with the explanation of its use
+Use this command to view all registered expenses. But you can also filter a custom view of the data. the arguments will be introduced with the explanation of its use
 
 --id
     - it will show only the given id, one or more
@@ -122,7 +127,7 @@ This comamnd will clear the database -- JSON file
 
 Using this command you can export a CSV file with the spending, it's possible also to export using filters
 
-By default the CSV file will be saved in the Desktop folder, otherwise you can define a valid folder path in "--folder" and the file will be save in it 
+By default the CSV file will be saved in the Desktop folder, otherwise you can define a valid folder path in "--folder" and it will be save in 
 
 
 file 
@@ -143,3 +148,22 @@ file
         - It will show all the values that are greater than the given value
 -a, --amount
             - It will show all the values that are equal to the given value
+
+### budget
+
+Budget has three subcommands: set, delete and list
+
+With budget you may define a monthly budget for th actual year
+
+### set
+
+It's used for setting an amount for a month 
+
+If your spends for the month get
+
+The arguments are:
+
+amount: required 
+
+month: required 
+

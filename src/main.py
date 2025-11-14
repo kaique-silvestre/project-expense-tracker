@@ -15,8 +15,8 @@ subparser = parser.add_subparsers(dest="command")
 
 # ADD SUBPARSER
 subparser_add = subparser.add_parser("add", help="Add a new transaction with a specified amount, category, date, and description.")
-subparser_add.add_argument("amount", type=float, help="The monetary amount of the transaction. Use negative values for expenses and positive for income.")
-subparser_add.add_argument("-c", "--category", type=str, default=None, help="The category of the transaction (e.g., food, transport, salary).")
+subparser_add.add_argument("amount", type=float, help="The monetary float amount of the transaction.")
+subparser_add.add_argument("-c", "--category", type=str, default=None, help="The category of the transaction (food, transport, salary).")
 subparser_add.add_argument("-D", "--date", type=str, default=None, help="The date of the transaction in DD-MM-YYYY format. Defaults to today's date if not provided.")
 subparser_add.add_argument("-d", "--description", type=str, default=None, help="A short optional description or note about the transaction.")
 
