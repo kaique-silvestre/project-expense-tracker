@@ -3,8 +3,6 @@ from controller.json_operations import JsonOperations
 from controller.validation import Validation
 
 
-# Tirar as duas filtragens "filter" arrumar a lógica para só uma
-
 class Read:
     
     @classmethod
@@ -33,8 +31,7 @@ class Read:
         if args.summary is not None:
             print(f"Results: {quantity} | Total amount: {amount}")
         
-        
-        
+            
     
     @classmethod 
     def filter(cls, database, args):

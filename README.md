@@ -5,7 +5,7 @@ github: https://github.com/kaique-silvestre/project-expense-tracker
 
 This project is called "expense-tracker" a challenge proposed by: [roadmap.sh](https://roadmap.sh/projects/expense-tracker)
 
-This application allows the user to track their spends. It is a classic CRUD with the data being stored in a JSON file. You can: Add, delete, update, set monthly budgets, list and export (both with filters)
+Expense
 
 you can also define a monthly budget to each month of the actual year, if you spend more than expected you will be notified
 
@@ -39,14 +39,14 @@ What you cannot do:
 - description cannot have a len higher than 100
 
 
-- add 1000 <br/>
-<code>{ id": 1, "amount": 1000.0, "category": null, "date": "13/11/2025", "description": null }<code/>
+- <code>add 1000</code> <br/>
+<code>{ id": 1, "amount": 1000.0, "category": null, "date": "13/11/2025", "description": null }</code>
 
 - add 1000 -c Food -d "A hotdog bought in the store"
->>> { id": 2, "amount": 1000.0, "category": "Food", "date": "13/11/2025", "description": "A hotdog bought in the store" }
+{ id": 2, "amount": 1000.0, "category": "Food", "date": "13/11/2025", "description": "A hotdog bought in the store" }
 
 - add 1000 -c Food -d "A hotdog bought in the store" -D 22/10/2020
->>> { id": 2, "amount": 1000.0, "category": "Food", "date": "22/10/2020", "description": "A hotdog bought in the store" }
+>{ id": 2, "amount": 1000.0, "category": "Food", "date": "22/10/2020", "description": "A hotdog bought in the store" }
 
 ### delete
 
@@ -77,13 +77,13 @@ description: -d, --description
 Example:
 
 - add 5000 
->>> {"id": 1, "amount": 5000.0, "category": null, "date": "13/11/2025", "description": null}
+{"id": 1, "amount": 5000.0, "category": null, "date": "13/11/2025", "description": null}
 
 Opsss we forgot to add category and description... look who update works:
 
 - update 1 -c Eletronic -d "pc components"
 
->>> {"id": 1, "amount": 5000.0, "category": "Eletronic", "date": "13/11/2025", "description": "pc components"}
+{"id": 1, "amount": 5000.0, "category": "Eletronic", "date": "13/11/2025", "description": "pc components"}
 
 It's possible to change all arguments or just one, and also possible to apply the same changes for more than one ID
 
@@ -121,7 +121,7 @@ Use this command to view all registered expenses. But you can also filter a cust
 
 This comamnd will clear the database -- JSON file
 
-- clear
+- <code>clear</code>
 
 ### export 
 

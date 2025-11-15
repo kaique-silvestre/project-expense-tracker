@@ -5,8 +5,6 @@ from controller.error import *
 
 class Validation:
 
-    def date_validation():...
-
     @classmethod
     def date_to_str(cls, date, date_format="%d/%m/%Y"):
         date = datetime.strftime(date, date_format)
