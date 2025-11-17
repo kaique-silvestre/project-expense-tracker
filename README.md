@@ -8,7 +8,7 @@ GitHub: https://github.com/kaique-silvestre/project-expense-tracker
 
 This project is called "expense-tracker," a challenge proposed by: roadmap.sh <!--Adicionar link-->
 
-You can also define a monthly budget for each month of the actual year; if you spend more than expected, you will be notified.
+CLI tool in Python using argparse for managing expenses and monthly budgets, with JSON storage; it allows adding expenses with category, description, and date, performing all CRUD operations such as update, delete, and read, and it is also possible to apply advanced filters to visualize and export data to CSV.
 
 An expense is a dictionary composed of the following data:
 * ID: It's an integer that identifies every single expense. It will never be Null or less than zero and cannot be modified by the user by CLI.
