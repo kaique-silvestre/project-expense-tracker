@@ -194,5 +194,82 @@
         "category": null,
         "date": "02/02/2023",
         "description": null
+    },
+    {
+        "id": 29,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 30,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": "20/01/2026"
+    },
+    {
+        "id": 31,
+        "amount": 200.0,
+        "category": null,
+        "date": "20/01/2026",
+        "description": null
+    },
+    {
+        "id": 32,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 33,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 34,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 35,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 36,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 37,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 38,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
+    },
+    {
+        "id": 39,
+        "amount": 200.0,
+        "category": null,
+        "date": "17/11/2025",
+        "description": null
     }
 ]

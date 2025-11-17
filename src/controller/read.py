@@ -27,7 +27,6 @@ class Read:
        
         Read.list(datas)
 
-        print(args.summary)
         if args.summary is not None:
             print(f"Results: {quantity} | Total amount: {amount}")
         
