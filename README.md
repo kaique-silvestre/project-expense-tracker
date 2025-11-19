@@ -164,9 +164,7 @@ expense-tracker clear
 
 **Description:**
 
-Using "export" command will export a file containing the filtered expenses
-
-By default, the CSV file will be saved in the Desktop folder. Otherwise, you can define a valid folder path in "--folder" and it will be saved there.
+Using "export" command will export a file containing the filtered expenses. By default, the CSV file will be saved in the Desktop folder. Otherwise, you can define a valid folder path in "--folder" and it will be saved there.
 
 **Arguments:**
 

@@ -28,7 +28,7 @@ subparser_delete.add_argument("id", type=int, nargs="+", help="Integer that uniq
 subparser_clear = subparser.add_parser("clear", help="Using the clear command will overwrites the current database with an empty one")
 
 # LIST SUBPARSER
-subparser_list = subparser.add_parser("list")
+subparser_list = subparser.add_parser("list", help="Use this command to view all registered expenses. You can also filter a custom view of the data using the arguments. The arguments will be introduced with the explanation of their use.")
 subparser_list.add_argument("--id", type=int, nargs="+", help="Use this command to view all registered expenses. You can also filter a custom view of the data using the arguments.")
 subparser_list.add_argument("-y","--year", type=int, nargs="+", help="Only shows the expenses of the given year(s)")
 subparser_list.add_argument("-m","--month", type=int, nargs="+", help="Only shows the expenses of the given month(s)")
@@ -39,7 +39,7 @@ subparser_list.add_argument("-a", "--amount", type=int, help="Only shows the exp
 subparser_list.add_argument("-s", "--summary", action="store_const", const=True, help="It show with the view the total amount of the filtered expanses and the quantity of showing registers")
 
 # BUDGET SUBPARSER
-budget_parser = subparser.add_parser("budget")
+budget_parser = subparser.add_parser("budget", help="Budget has three subcommands: set, delete, and list. With budget, you may define a monthly budget for the actual year")
 
 subparser_budget = budget_parser.add_subparsers(dest="command_budget")
 
@@ -65,15 +65,15 @@ subparser_update.add_argument("-D", "--date", type=str, help="A string represent
 subparser_update.add_argument("-c", "--category", type=str, help="A string representing a description to the expense that the user may provide")
 
 # Export 
-subparser_export = subparser.add_parser("export")
+subparser_export = subparser.add_parser("export", help="export a file containing the filtered expenses. By default, the CSV file will be saved in the Desktop folder. Otherwise, you can define a valid folder path in '--folder' and it will be saved there.")
 subparser_export.add_argument("file", type=str, help="Required string argument that will be the name of the file.")
 subparser_export.add_argument("--folder", type=str, help="string that should be a valid folder path to store the CSV file.")
 subparser_export.add_argument("--id", nargs="+", type=int, help="It will show only the given id, one or more.")
 subparser_export.add_argument("-y","--year", nargs="+", type=int, help="It will show only the given year, one or more.")
 subparser_export.add_argument("-m","--month", nargs="+", type=int, help="It will show only the given month, one or more.")
 subparser_export.add_argument("-c", "--category", type=str, help="It will show only the given category.")
-subparser_export.add_argument("-l", "--less", type=int, help="It will show all the values that are greater than the given value.")
-subparser_export.add_argument("-g", "--greater", type=int, help="")
+subparser_export.add_argument("-l", "--less", type=int, help="It will show all the values that are less than the given value.")
+subparser_export.add_argument("-g", "--greater", type=int, help="It will show all the values that are greater than the given value.")
 subparser_export.add_argument("-a", "--amount", type=int, help="It will show all the values that are equal to the given value.")
 
 

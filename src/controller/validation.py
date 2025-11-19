@@ -131,8 +131,10 @@ class Validation:
             exit()
 
     def budget_delete_validation(self, args):
-        self.month_validation(args.month)
-
+        if args.month is not None:
+            for item in args.month:
+                if item > 12 or item < 1:
+                    raise MonthDoesntExistError()
     # middle level
     def year_validation(self, year):
         if year is not None:
